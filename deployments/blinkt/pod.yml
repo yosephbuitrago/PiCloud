@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: blinkt
+spec:
+  containers:
+  - image: alexellis2/progress-blinkt:red
+    name: blinkt
+    volumeMounts:
+    - mountPath: /sys
+      name: sys-mount
+  volumes:
+  - name: sys-mount
+    hostPath:
+      # directory location on host
+      path: /sys
+      # this field is optional
+      type: Directory

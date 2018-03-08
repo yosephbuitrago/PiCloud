@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blinkt
+  labels:
+    app: blinkt
+spec:
+  minReadySeconds: 10
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blinkt
+  template:
+    metadata:
+      labels:
+        app: blinkt
+    spec:
+      containers:
+      - name: blinkt
+        image: alexellis2/progress-blinkt:red
+        volumeMounts:
+        - mountPath: /sys
+          name: sys-mount
+      volumes:
+      - name: sys-mount
+        hostPath: 
+          path: '/sys'
+

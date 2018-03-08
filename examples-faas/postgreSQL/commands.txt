@@ -1,0 +1,12 @@
+# create a row in the database
+curl -X POST http://127.0.0.1:31112/function/create -d  '{"name":"Hello Docker meet up"}'
+
+# update the row
+curl -X POST http://127.0.0.1:31112/function/update -d  '{"name":"Thank WorkDay for having us!!", "id": "1"}'
+
+# delete the row
+curl -X POST http://127.0.0.1:31112/function/delete -d '{"id":"1"}'
+
+# select all from data base
+
+curl http://127.0.0.1:31112/function/read

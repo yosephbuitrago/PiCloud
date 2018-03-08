@@ -1,0 +1,52 @@
+---
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: hello-pod
+  labels:
+    app: hello-pod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-pod
+  template:
+    metadata:
+      labels:
+        app: hello-pod
+        version: v1
+    spec:
+      containers:
+      - name: hello-pod
+        image: yoseph/hello-pod:v2
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-pod
+spec:
+  type: LoadBalancer
+  ports:
+  - name: http
+    targetPort: 8080
+    port: 80
+  selector:
+    app: hello-pod
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hello-pod
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: hello-pod.pi
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: hello-pod
+          servicePort: http

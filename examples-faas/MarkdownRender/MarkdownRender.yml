@@ -1,0 +1,9 @@
+provider:
+  name: faas
+  gateway: http://127.0.0.1:31112
+
+functions:
+  MarkdownRender:
+    lang: go-armhf
+    handler: ./MarkdownRender
+    image: yoseph/faas-markdownrender
